@@ -8,6 +8,8 @@ app.use(express.json());
 //     res.send("Hello World !");
 // });
 
+
+// Mettre la function call dans un autre fichier ? Is it cleaner ?
 app.post("/process-video", (req, res) => {
     // Récupérer le chemin de la vidéo à convertir et la donner au body de la request
     const inputFilePath = req.body.inputFilePath;
@@ -24,6 +26,7 @@ app.post("/process-video", (req, res) => {
         res.status(400).send(`Bad Request: Missing file path => ${missingPaths.join()}` );
     }
 
+    
     ffmpeg(inputFilePath)
         .outputOptions("-vf", "scale=-1:360") // 360p
         .on("end", function() {
